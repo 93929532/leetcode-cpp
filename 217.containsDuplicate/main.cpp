@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -8,16 +9,14 @@ using namespace std;
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        
-        for(size_t i = 0; i < nums.size(); i++)
-            for(size_t j = i + 1; j < nums.size(); j++) {
-                if(nums[i] == nums[j])
-                    return true;
-            }
-
+        unordered_map<int,int> cnt;
+        for(int x : nums) {
+            ++cnt[x];
+            if(cnt[x] > 1) return true;
+        }
         return false;
     }
-};
+}; 
 // ===================== 答题区域结束 =====================
 
 // ----------------- 以下为辅助函数与测试骨架，无需修改 -----------------
