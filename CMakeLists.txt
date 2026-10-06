@@ -5,6 +5,25 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ============================================================
+#  源码编码：全仓 main.cpp 都是「UTF-8 无 BOM」，而注释和测试用例里
+#  都有中文。MSVC 不加选项时按系统本地代码页解析源文件（中文 Windows
+#  上是 936/GBK），会把 UTF-8 中文字节的边界切错，进而把字节 0x22 误
+#  认成字符串的结束引号 —— 一条中文注释就能引发几十条 C2143 / C2001 /
+#  C3688 语法错误。g++ 从源码探测编码，通常不会踩这个坑。
+#
+#  这里按编译器分别显式指定 UTF-8（对另一方的开关无效也无害）：
+#    · MSVC : /utf-8 等价于 /source-charset:utf-8 /execution-charset:utf-8
+#             /EHsc 是标准异常模型，MSVC 下用 <iostream> 不带它会告警 C4530
+#    · g++  : 两个 -f*charset 开关把输入与执行字符集都钉死为 UTF-8
+#  这样同一份源码在 MinGW(g++) 和 MSVC(cl) 下都能正确编译。
+# ============================================================
+if(MSVC)
+    add_compile_options(/utf-8 /EHsc)
+else()
+    add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
+endif()
+
+# ============================================================
 #  自动发现每个题目目录里的 main.cpp，各自编译成一个可执行文件。
 #
 #  · 不写死任何编译器的绝对路径 —— 全部从 PATH 探测，

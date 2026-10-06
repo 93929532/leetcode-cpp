@@ -10,6 +10,8 @@
                 "-std=c++17",
                 "-g",
                 "-Wall",
+                "-finput-charset=UTF-8",
+                "-fexec-charset=UTF-8",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe"
