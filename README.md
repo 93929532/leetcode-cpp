@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 20 个 |
-| 其中在计划内 | 12 个 |
+| 已建工程 | 21 个 |
+| 其中在计划内 | 13 个 |
 | 计划外热身题 | 8 个 |
 
-**已建工程（计划内 12 题）**
+**已建工程（计划内 13 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -36,6 +36,7 @@
 | 21 | Merge Two Sorted Lists | 链表 | Easy |
 | 23 | Merge k Sorted Lists | 链表 | Hard |
 | 25 | Reverse Nodes in k-Group | 链表 | Hard |
+| 217 | Contains Duplicate | 数组与哈希 | Easy |
 
 **计划外热身题（8 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
 13 罗马数字转整数、14 最长公共前缀、18 四数之和、22 括号生成
@@ -65,7 +66,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 25.reverseKGroup/
-    └── main.cpp               # 共 20 个题目
+    └── main.cpp               # 共 21 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -168,7 +169,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 20 道题
+cmake --build --preset default  # 编译全部 21 道题
 ```
 
 只想编译一道题：

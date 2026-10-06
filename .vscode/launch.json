@@ -12,7 +12,6 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
             "setupCommands": [
                 {
                     "description": "启用 gdb 的整齐打印",
