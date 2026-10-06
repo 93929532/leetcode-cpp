@@ -4,47 +4,24 @@
 #include <array>
 #include <algorithm>
 
+
 using namespace std;
 
 // ===================== 答题区域 =====================
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        // TODO: 在这里写你的解法
-        //
-        // 提示（先别展开看，卡住 10 分钟以上再回头看）：
-        //
-        //   思路一 · 定长计数数组（推荐，O(n) 时间 / O(1) 空间）
-        //     题目限定「只含小写字母」，字母表大小固定是 26，
-        //     所以可以用 array<int, 26> cnt{}; 代替哈希表，
-        //     下标 = c - 'a'，比 unordered_map 更快也更省。
-        //     做法：先判断长度，不等直接 return false；
-        //           遍历 s 对 cnt 做 +1，遍历 t 对 cnt 做 -1；
-        //           最后看 cnt 是否全为 0（全 0 说明两边字母用量完全一致）。
-        //
-        //   思路二 · 排序后逐位比较（O(n log n)）
-        //     把 s 和 t 各自 sort 一遍，再逐个字符比对。
-        //     代码最短，但每多一次比较就多一次 O(n) 扫描。
-        //     写法：return s.size() == t.size() && (sort(s), sort(t), s == t);
-        //
-        //   两个坑，写完先自己检查一遍：
-        //     1. 长度不同必须提前返回 —— 只靠计数数组的话，
-        //        "ab" 与 "a" 这种会在末尾被判成 true 吗？想清楚再写。
-        //     2. 下标 c - 'a' 只在「保证是小写字母」时才安全；
-        //        如果测试里混进大写或其他字符，会越界写坏内存。
-        //
-        //   进阶（题目末尾的追问）：如果输入是 unicode 字符怎么办？
-        //     定长 26 数组的前提就没了，要换成 unordered_map<uint32_t, int>
-        //     或者先按 UTF-8 码点解码再统计；核心思路（两边计数相消）不变。
 
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
+        array<int, 26> cnts{}, cntt{};
+        
+        for(char c : s) cnts[c - 'a']++;
+        for(char c : t) cntt[c - 'a']++;
 
-        for(size_t i = 0; i < s.size() || i < t.size(); ++i){
-            if(s[i] != t[i]){
+        for(int i = 0; i < 26; i++) {
+            if(cnts[i] != cntt[i])
                 return false;
-            }
         }
+
         return true;  
     }
 };

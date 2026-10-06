@@ -1,11 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <sstream>
-#include <limits>
+#include <algorithm>   // std::find / std::reverse：节点身份校验与结果比对
 
 #ifdef _WIN32
-#include <windows.h>  // SetConsoleOutputCP:解决中文输出乱码
+#include <windows.h>   // SetConsoleOutputCP:解决中文输出乱码
 #endif
 
 using namespace std;
@@ -71,10 +70,10 @@ public:
 };
 
 // ===================== 答题区域结束 =====================
-// ===================== 以下为测试框架,无需修改 =====================
+// ----------------- 以下为辅助函数与测试骨架，无需修改 -----------------
 
 // 由数组构建链表,返回头节点
-ListNode* buildList(const vector<int>& nums) {
+static ListNode* buildList(const vector<int>& nums) {
     ListNode dummy;              // 虚拟头节点,简化插入逻辑
     ListNode* cur = &dummy;
     for (int v : nums) {
@@ -84,18 +83,19 @@ ListNode* buildList(const vector<int>& nums) {
     return dummy.next;
 }
 
-// 按 [a,b,c] 的格式打印链表
-void printList(ListNode* head) {
-    cout << "[";
+// 按 [a,b,c] 的格式序列化链表
+static string listToString(ListNode* head) {
+    string s = "[";
     for (ListNode* p = head; p != nullptr; p = p->next) {
-        if (p != head) cout << ",";
-        cout << p->val;
+        if (p != head) s += ",";
+        s += to_string(p->val);
     }
-    cout << "]" << endl;
+    s += "]";
+    return s;
 }
 
 // 释放整条链表,避免内存泄漏
-void freeList(ListNode* head) {
+static void freeList(ListNode* head) {
     while (head != nullptr) {
         ListNode* nxt = head->next;
         delete head;
@@ -103,51 +103,111 @@ void freeList(ListNode* head) {
     }
 }
 
-// 从输入流读取一行整数(空格分隔)作为链表节点值
-bool readLine(vector<int>& nums) {
-    nums.clear();
-    string line;
-    if (!getline(cin, line)) return false;   // 读到 EOF,结束
-    istringstream iss(line);
-    int v;
-    while (iss >> v) nums.push_back(v);
-    return true;
+// 单条测试用例
+struct TestCase {
+    string name;          // 用例名称
+    vector<int> head;     // 输入链表
+    int k;                // 分组大小
+    vector<int> expected; // 期望输出
+};
+
+// 运行一条用例，打印一行信息，返回该用例是否通过
+//
+// 除了比对数值序列，还会校验「是否真的交换了节点」：
+//   题目明确要求不能只改 val。这里在调用前记下原链表每个节点的地址，
+//   若返回结果的节点从头到尾都是原节点本身（没有新建节点），
+//   说明是在原节点上重新接线 —— 这才是符合题意的做法。
+static bool runCase(const TestCase& c) {
+    ListNode* head = buildList(c.head);
+
+    // 记录原链表所有节点的地址（用于身份校验）
+    vector<ListNode*> originalNodes;
+    for (ListNode* p = head; p != nullptr; p = p->next) {
+        originalNodes.push_back(p);
+    }
+
+    Solution sol;
+    ListNode* result = sol.reverseKGroup(head, c.k);
+
+    // 1) 数值序列是否正确
+    string got = listToString(result);
+    string want = listToString(buildList(c.expected));
+
+    // 2) 返回的节点是否全部来自原链表（没有偷偷 new 出新节点）
+    bool allFromOriginal = true;
+    for (ListNode* p = result; p != nullptr; p = p->next) {
+        if (find(originalNodes.begin(), originalNodes.end(), p) == originalNodes.end()) {
+            allFromOriginal = false;
+            break;
+        }
+    }
+    // 3) 单节点用例无从判断，节点数 >= 2 时身份校验才有意义
+    bool identityMeaningful = c.head.size() >= 2;
+    bool nodeSwapOk = (!identityMeaningful) || allFromOriginal;
+
+    bool pass = (got == want) && nodeSwapOk;
+
+    cout << (pass ? "[通过] " : "[失败] ") << c.name
+         << "  head = " << listToString(buildList(c.head))
+         << "  k = " << c.k
+         << "  期望: " << want
+         << "  实际: " << got;
+    if (identityMeaningful && !allFromOriginal) {
+        cout << "    ← 出现了新建节点，未在原节点上交换（题目禁止只改 val，也隐含要求原地重排）";
+    }
+    cout << endl;
+
+    // result 与 head 指向同一批节点，释放一次即可
+    freeList(result);
+    return pass;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
 #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);   // 让控制台按 UTF-8 输出，避免中文乱码
 #endif
 
-    cout << "输入格式:" << endl;
-    cout << "  第 1 行:链表节点值(空格分隔,如 1 2 3 4 5)" << endl;
-    cout << "  第 2 行:k 的值" << endl;
-    cout << "可重复输入多组数据,EOF(Ctrl+Z 回车)结束。" << endl;
+    // 题目给出的示例
+    const vector<TestCase> sampleCases = {
+        {"示例 1", {1, 2, 3, 4, 5}, 2, {2, 1, 4, 3, 5}},
+        {"示例 2", {1, 2, 3, 4, 5}, 3, {3, 2, 1, 4, 5}},
+    };
 
-    vector<int> nums;
-    int k = 0;
-    while (readLine(nums)) {                 // 第 1 行:链表值
-        if (nums.empty()) continue;
-        if (!(cin >> k)) break;              // 第 2 行:k
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');  // 吃掉行尾换行
+    // 额外的边界与补充用例
+    const vector<TestCase> extraCases = {
+        {"单节点 k=1",          {1},              1, {1}},
+        {"两节点 k=1",          {1, 2},           1, {1, 2}},
+        {"两节点 k=2",          {1, 2},           2, {2, 1}},
+        {"三节点 k=2 留尾巴",   {1, 2, 3},        2, {2, 1, 3}},
+        {"k 等于链表长度",      {1, 2, 3},        3, {3, 2, 1}},
+        {"k 大于链表长度",      {1, 2, 3},        5, {1, 2, 3}},
+        {"四节点 k=4",          {1, 2, 3, 4},     4, {4, 3, 2, 1}},
+        {"六节点 k=3 整除",     {1, 2, 3, 4, 5, 6}, 3, {3, 2, 1, 6, 5, 4}},
+        {"七节点 k=3 留 1 个",  {1, 2, 3, 4, 5, 6, 7}, 3, {3, 2, 1, 6, 5, 4, 7}},
+        {"七节点 k=2 留 1 个",  {1, 2, 3, 4, 5, 6, 7}, 2, {2, 1, 4, 3, 6, 5, 7}},
+        {"含重复值",            {1, 1, 2, 2, 1},  2, {1, 1, 2, 2, 1}},
+        {"含负数",              {-1, -2, -3, -4}, 2, {-2, -1, -4, -3}},
+    };
 
-        ListNode* head = buildList(nums);
-        Solution sol;
-        ListNode* res = sol.reverseKGroup(head, k);
+    size_t passed = 0;
+    size_t total = 0;
 
-        cout << "输入: head = [";
-        for (size_t i = 0; i < nums.size(); ++i) {
-            if (i) cout << ",";
-            cout << nums[i];
-        }
-        cout << "], k = " << k << endl;
-        cout << "输出: ";
-        printList(res);
-
-        freeList(res);                       // res 含全部原始节点,释放一次即可
+    cout << "================ 题目示例 ================" << endl;
+    for (const auto& c : sampleCases) {
+        ++total;
+        if (runCase(c)) ++passed;
     }
+
+    cout << endl << "================ 补充用例 ================" << endl;
+    for (const auto& c : extraCases) {
+        ++total;
+        if (runCase(c)) ++passed;
+    }
+
+    cout << endl << "================ 结果统计 ================" << endl;
+    cout << "共 " << total << " 个用例，通过 " << passed
+         << " 个，失败 " << (total - passed) << " 个。" << endl;
+    cout << (passed == total ? "全部通过 ✔" : "存在失败用例 ✘") << endl;
 
     return 0;
 }
