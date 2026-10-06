@@ -1,0 +1,37 @@
+# ============================================================
+#  .gitignore
+#
+#  原则：只排除「这个仓库真的会生成」的东西；
+#        人写的文件（.cpp / .md / 配置）一律提交。
+#
+#  ⚠️ .gitignore 不支持行尾注释，注释必须单独占一行。
+# ============================================================
+
+# ---------- 编译产物 ----------
+# 每道题编译出的可执行文件（g++ 直接编译或 CMake 构建都会生成）
+*.exe
+
+# ---------- CMake 构建目录 ----------
+# CMakePresets.json 里配置的 binaryDir
+build/
+# 旧结构遗留的构建目录：从另一台电脑复制题目目录时可能带进来
+out/
+# 不用预设、直接 cmake 时会散落在各处的缓存
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+# VS Code 的 CMake Tools 生成的个人配置，绝不能提交
+CMakeUserPresets.json
+
+# ---------- 编辑器缓存 ----------
+# C/C++ 扩展的 IntelliSense 预编译头
+.vscode/ipch/
+
+# ---------- Excel 临时锁文件 ----------
+# 打开 力扣学习计划/刷题进度表.xlsx 时会出现 ~$ 开头的临时文件
+~$*
+
+# ---------- Windows 系统文件 ----------
+Thumbs.db
+Desktop.ini

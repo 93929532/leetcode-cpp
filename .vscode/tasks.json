@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "编译当前文件 (g++)",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++17",
+                "-g",
+                "-Wall",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "用 PATH 上的 g++ 编译当前打开的文件。不含绝对路径，任何装了 g++ 的机器都能用。"
+        },
+        {
+            "type": "shell",
+            "label": "编译并运行当前文件",
+            "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [],
+            "dependsOn": "编译当前文件 (g++)",
+            "detail": "先编译再运行，等价于按 Ctrl+Shift+B 之后手动执行生成的 exe。"
+        }
+    ]
+}
