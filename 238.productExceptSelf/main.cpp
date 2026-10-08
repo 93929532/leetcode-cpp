@@ -64,13 +64,13 @@ public:
         
         vector<int> cntl = nums, cntr = nums;
         
-        for(int left = 1; left < cntl.size(); left++) 
+        for(size_t left = 1; left < cntl.size(); left++) 
             cntl[left] = cntl[left] * cntl[left - 1];
         
-        for(int right = cntr.size() - 2; right >= 0; right--) 
+        for(size_t right = cntr.size() - 2; right >= 0; right--) 
             cntr[right] = cntr[right] * cntr[right + 1];
         
-        for(int n = 0; n < nums.size(); n++) {
+        for(size_t n = 0; n < nums.size(); n++) {
             if(n == 0)
                 nums[n] = cntr[n + 1];
             else if(n == nums.size() - 1)
