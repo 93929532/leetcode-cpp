@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 21 个 |
-| 其中在计划内 | 13 个 |
-| 计划外热身题 | 8 个 |
+| 已建工程 | 32 个 |
+| 其中在计划内 | 18 个 |
+| 计划外热身题 | 14 个 |
 
-**已建工程（计划内 13 题）**
+**已建工程（计划内 18 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -32,14 +32,21 @@
 | 10 | Regular Expression Matching | 二维动态规划 | Hard |
 | 11 | Container With Most Water | 双指针 | Medium |
 | 15 | 3Sum | 双指针 | Medium |
+| 17 | Letter Combinations of a Phone Number | 回溯 | Medium |
+| 19 | Remove Nth Node From End of List | 链表 | Medium |
 | 20 | Valid Parentheses | 栈 | Easy |
 | 21 | Merge Two Sorted Lists | 链表 | Easy |
 | 23 | Merge k Sorted Lists | 链表 | Hard |
 | 25 | Reverse Nodes in k-Group | 链表 | Hard |
+| 49 | Group Anagrams | 数组与哈希 | Medium |
+| 125 | Valid Palindrome | 双指针 | Easy |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
+| 242 | Valid Anagram | 数组与哈希 | Easy |
 
-**计划外热身题（8 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
-13 罗马数字转整数、14 最长公共前缀、18 四数之和、22 括号生成
+**计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
+13 罗马数字转整数、14 最长公共前缀、16 最接近的三数之和、18 四数之和、22 括号生成、
+24 两两交换链表中的节点、26 删除有序数组中的重复项、27 移除元素、
+28 找出字符串中第一个匹配项的下标、29 两数相除
 
 > 逐题的完成日期、是否看了解析、盲写通过日期、卡点笔记，
 > 记录在 [刷题进度表.xlsx](力扣学习计划/刷题进度表.xlsx) 里。
@@ -65,8 +72,8 @@ leetcode-cpp/
 ├── 3.lengthOfLongestSubstring/
 │   └── main.cpp
 ├── ...
-└── 25.reverseKGroup/
-    └── main.cpp               # 共 21 个题目
+└── 29.divide/
+    └── main.cpp               # 共 32 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -169,7 +176,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 21 道题
+cmake --build --preset default  # 编译全部 32 道题
 ```
 
 只想编译一道题：
