@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 33 个 |
-| 其中在计划内 | 19 个 |
+| 已建工程 | 35 个 |
+| 其中在计划内 | 21 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 19 题）**
+**已建工程（计划内 21 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -41,7 +41,9 @@
 | 49 | Group Anagrams | 数组与哈希 | Medium |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
+| 238 | Product of Array Except Self | 数组与哈希 | Medium |
 | 242 | Valid Anagram | 数组与哈希 | Easy |
+| 271 | Encode and Decode Strings | 数组与哈希 | Medium |
 | 347 | Top K Frequent Elements | 数组与哈希 | Medium |
 
 **计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
@@ -74,7 +76,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 347.topKFrequent/
-    └── main.cpp               # 共 33 个题目
+    └── main.cpp               # 共 35 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -177,7 +179,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 33 道题
+cmake --build --preset default  # 编译全部 35 道题
 ```
 
 只想编译一道题：
