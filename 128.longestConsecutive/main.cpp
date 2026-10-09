@@ -68,20 +68,19 @@ public:
         //     · 你已建工程里 217 也是"哈希查存在性"，区别是这题要的是「值连续」
         //       这种结构关系，而不是单纯的重复判断
 
-        if(nums.size() == 0) return 0;
-        if(nums.size() == 1) return 1;
+        unordered_set<int> cnt;
 
-        sort(nums.begin(),nums.end());
+        for(int n : nums) cnt.insert(n);
 
-        int tmp = 1;
-        int res = tmp;
+        int res = 0;
 
-        for(size_t left = 0, right = 1; right < nums.size(); left++, right++) {
-            if(nums[left] == nums[right]) continue;
-            if(nums[left] + 1 == nums[right]) tmp++;
-            if(nums[left] + 1 < nums[right]) tmp = 1;
+        for(int x : cnt) {
+            if(cnt.find(x - 1) != cnt.end()) continue;
 
-            if(tmp > res) res = tmp;
+            int next = x;
+            while(cnt.find(next + 1) != cnt.end()) next++;
+            
+            res = max(res, next - x + 1);
         }
 
         return res;
