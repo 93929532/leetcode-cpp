@@ -64,10 +64,10 @@ public:
         
         vector<int> cntl = nums, cntr = nums;
         
-        for(size_t left = 1; left < cntl.size(); left++) 
+        for(int left = 1; left < (int)cntl.size(); left++) 
             cntl[left] = cntl[left] * cntl[left - 1];
         
-        for(size_t right = cntr.size() - 2; right >= 0; right--) 
+        for(int right = cntr.size() - 2; right >= 0; right--) 
             cntr[right] = cntr[right] * cntr[right + 1];
         
         for(size_t n = 0; n < nums.size(); n++) {
