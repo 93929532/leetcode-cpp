@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 39 个 |
-| 其中在计划内 | 25 个 |
+| 已建工程 | 40 个 |
+| 其中在计划内 | 26 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 25 题）**
+**已建工程（计划内 26 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -40,6 +40,7 @@
 | 23 | Merge k Sorted Lists | 链表 | Hard |
 | 25 | Reverse Nodes in k-Group | 链表 | Hard |
 | 36 | Valid Sudoku | 数组与哈希 | Medium |
+| 42 | Trapping Rain Water | 双指针 | Hard |
 | 49 | Group Anagrams | 数组与哈希 | Medium |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
@@ -80,7 +81,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 347.topKFrequent/
-    └── main.cpp               # 共 39 个题目
+    └── main.cpp               # 共 40 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -183,7 +184,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 39 道题
+cmake --build --preset default  # 编译全部 40 道题
 ```
 
 只想编译一道题：
