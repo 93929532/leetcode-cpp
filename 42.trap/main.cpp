@@ -90,38 +90,27 @@ public:
         if (height.size() == 0 || height.size() == 1)
             return 0;
 
-        int maxh = 0, maxn = 0;
-        for (int i = 0; i < height.size(); ++i)
-        {
-            if (height[i] > maxh)
-                maxh = height[i], maxn = i;
-        }
-
         int left = 0, right = height.size() - 1;
-        int lefth = height[left], righth = height[right];
-        int leftv = 0, rightv = 0;
+        int leftMax = height[left], rightMax = height[right];
+        int water = 0;
 
-        while (left < maxn)
+        while (left < right)
         {
-            if (lefth >= height[left])
-                leftv += lefth - height[left];
+            if (height[left] < height[right])
+            {
+                leftMax = max(leftMax, height[left]);
+                water += leftMax - height[left];
+                ++left;
+            }
             else
-                lefth = height[left];
-
-            ++left;
+            {
+                rightMax = max(rightMax, height[right]);
+                water += rightMax - height[right];
+                --right;
+            }
         }
 
-        while (right > maxn)
-        {
-            if (righth >= height[right])
-                rightv += righth - height[right];
-            else
-                righth = height[right];
-
-            --right;
-        }
-
-        return leftv + rightv;
+        return water;
     }
 };
 // ===================== 答题区域结束 =====================
