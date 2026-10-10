@@ -16,14 +16,15 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 37 个 |
-| 其中在计划内 | 23 个 |
+| 已建工程 | 39 个 |
+| 其中在计划内 | 25 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 23 题）**
+**已建工程（计划内 25 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
+| 1 | Two Sum | 数组与哈希 | Easy |
 | 2 | Add Two Numbers | 链表 | Medium |
 | 3 | Longest Substring Without Repeating Characters | 滑动窗口 | Medium |
 | 4 | Median of Two Sorted Arrays | 二分查找 | Hard |
@@ -42,6 +43,7 @@
 | 49 | Group Anagrams | 数组与哈希 | Medium |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
+| 167 | Two Sum II - Input Array Is Sorted | 双指针 | Medium |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
 | 238 | Product of Array Except Self | 数组与哈希 | Medium |
 | 242 | Valid Anagram | 数组与哈希 | Easy |
@@ -78,7 +80,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 347.topKFrequent/
-    └── main.cpp               # 共 37 个题目
+    └── main.cpp               # 共 39 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -181,7 +183,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 37 道题
+cmake --build --preset default  # 编译全部 39 道题
 ```
 
 只想编译一道题：
