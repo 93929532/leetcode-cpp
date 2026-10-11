@@ -2,7 +2,7 @@
 
 用「按知识点连刷」的方式补 C++ 算法基础，同时把 Git / GitHub 练成肌肉记忆。
 
-- 题单：**NeetCode 150 精简版**，137 条记录 / 16 个主题（Easy 25 · Medium 92 · Hard 20）
+- 题单：**NeetCode 150 精简版**，132 条记录 / 16 个主题（Easy 25 · Medium 88 · Hard 19）
 - 节奏：每周 6 天新题 + 1 天纯复习，每天约 1 小时，单题限时 35 分钟
 - 语言：C++17（每个题目一个 `main.cpp`，自带测试用例；**全仓库共用一份构建配置**）
 
@@ -15,12 +15,12 @@
 
 | 指标 | 数量 |
 | --- | --- |
-| 计划题目 | 137 条记录（其中题号 323 重复登记，实际 136 道不同题目） |
-| 已建工程 | 40 个 |
-| 其中在计划内 | 26 个 |
+| 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
+| 已建工程 | 41 个 |
+| 其中在计划内 | 27 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 26 题）**
+**已建工程（计划内 27 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -42,14 +42,15 @@
 | 36 | Valid Sudoku | 数组与哈希 | Medium |
 | 42 | Trapping Rain Water | 双指针 | Hard |
 | 49 | Group Anagrams | 数组与哈希 | Medium |
+| 121 | Best Time to Buy and Sell Stock | 滑动窗口 | Easy |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
 | 167 | Two Sum II - Input Array Is Sorted | 双指针 | Medium |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
 | 238 | Product of Array Except Self | 数组与哈希 | Medium |
 | 242 | Valid Anagram | 数组与哈希 | Easy |
-| 271 | Encode and Decode Strings | 数组与哈希 | Medium |
 | 347 | Top K Frequent Elements | 数组与哈希 | Medium |
+| 424 | Longest Repeating Character Replacement | 滑动窗口 | Medium |
 
 **计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
 13 罗马数字转整数、14 最长公共前缀、16 最接近的三数之和、18 四数之和、22 括号生成、
@@ -74,7 +75,7 @@ leetcode-cpp/
 │   └── launch.json            # ★ F5 调试「当前打开的文件」
 ├── 力扣学习计划/                # 计划与记录
 │   ├── 学习路线图.md            # 方法论、阶段划分、C++ 模板
-│   └── 刷题进度表.xlsx          # 137 题逐题清单 + 自动统计看板
+│   └── 刷题进度表.xlsx          # 132 题逐题清单 + 自动统计看板
 ├── 2.addTwoNumbers/
 │   └── main.cpp               # 一个题目 = 一个目录 + 一个 main.cpp
 ├── 3.lengthOfLongestSubstring/
@@ -240,7 +241,7 @@ feat(15): 三数之和 排序+双指针
 | 文件 | 作用 |
 | --- | --- |
 | [学习路线图.md](力扣学习计划/学习路线图.md) | 为什么这样排题、六个阶段、递归四步法、DP 三段式、8 个 C++ 模板 |
-| [刷题进度表.xlsx](力扣学习计划/刷题进度表.xlsx) | 137 题逐题状态；「主题看板」表用公式自动算每主题完成率 |
+| [刷题进度表.xlsx](力扣学习计划/刷题进度表.xlsx) | 132 题逐题状态；「主题看板」表用公式自动算每主题完成率 |
 
 **核心执行纪律**（摘自学习路线图）：
 
