@@ -21,13 +21,13 @@ public:
             count[s[right] - 'A']++;
             maxCnt = max(maxCnt, count[s[right] - 'A']);
 
-            if (right - left + 1 - maxCnt > k)
+            while (right - left + 1 - maxCnt > k)
             {
                 count[s[left] - 'A']--;
                 left++;
             }
 
-            best = right - left + 1;
+            best = max(best, right - left + 1);
         }
 
         return best;
