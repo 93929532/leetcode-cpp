@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
-| 已建工程 | 43 个 |
-| 其中在计划内 | 29 个 |
+| 已建工程 | 44 个 |
+| 其中在计划内 | 30 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 29 题）**
+**已建工程（计划内 30 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -49,6 +49,7 @@
 | 167 | Two Sum II - Input Array Is Sorted | 双指针 | Medium |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
 | 238 | Product of Array Except Self | 数组与哈希 | Medium |
+| 239 | Sliding Window Maximum | 滑动窗口 | Hard |
 | 242 | Valid Anagram | 数组与哈希 | Easy |
 | 347 | Top K Frequent Elements | 数组与哈希 | Medium |
 | 424 | Longest Repeating Character Replacement | 滑动窗口 | Medium |
@@ -84,7 +85,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 347.topKFrequent/
-    └── main.cpp               # 共 43 个题目
+    └── main.cpp               # 共 44 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -187,7 +188,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 43 道题
+cmake --build --preset default  # 编译全部 44 道题
 ```
 
 只想编译一道题：
