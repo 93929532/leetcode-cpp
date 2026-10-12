@@ -1,20 +1,22 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <deque>       // 单调队列用它；思路二/三也用得到
-#include <queue>       // 思路三的替代方案：大顶堆
-#include <algorithm>   // max：解法与测试骨架都可能用到
+#include <deque>     // 单调队列用它；思路二/三也用得到
+#include <queue>     // 思路三的替代方案：大顶堆
+#include <algorithm> // max：解法与测试骨架都可能用到
 
 #ifdef _WIN32
-#include <windows.h>   // SetConsoleOutputCP：让控制台按 UTF-8 输出，避免中文乱码
+#include <windows.h> // SetConsoleOutputCP：让控制台按 UTF-8 输出，避免中文乱码
 #endif
 
 using namespace std;
 
 // ===================== 答题区域 =====================
-class Solution {
+class Solution
+{
 public:
-    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+    vector<int> maxSlidingWindow(vector<int> &nums, int k)
+    {
         // TODO: 在这里写你的解法
         //
         // 提示（先别展开看，卡住 10 分钟以上再回头看）：
@@ -65,19 +67,25 @@ public:
         //     7. **`deque` 的 front/back 前必须判空**，否则空 deque 上取值是 UB。
         //     8. **空数组**（约束 n ≥ 1，不会出现）：`i - k` 之类的计算要小心无符号下溢。
 
+        deque<int> dq;
         vector<int> res;
 
-        int left, right;
-        for (left = 0, right = k; right < nums.size() - 1; left++, right++)
+        for (int i = 0; i < (int)nums.size(); i++)
         {
-            int best = nums[left], i = left;
-            while (i != right)
-            {
-                best = max(best, nums[i]);
-                i++;
-            }
+            // 弹队尾：维护单调递减
+            while (!dq.empty() && nums[dq.back()] <= nums[i])
+                dq.pop_back();
 
-            res.push_back(best);
+            // 入队
+            dq.push_back(i);
+
+            // 弹队首: 过期
+            if (dq.front() <= i - k)
+                dq.pop_front();
+
+            // 取答案
+            if (i >= k - 1)
+                res.push_back(nums[dq.front()]);
         }
 
         return res;
@@ -88,24 +96,32 @@ public:
 // ----------------- 以下为辅助函数与测试骨架，无需修改 -----------------
 
 // 把数组格式化成 [3,3,5,5,6,7] 便于打印；过长的数组只打印首 6 末 3
-static string vectorToString(const vector<int>& v) {
-    if (v.size() <= 12) {
+static string vectorToString(const vector<int> &v)
+{
+    if (v.size() <= 12)
+    {
         string s = "[";
-        for (size_t i = 0; i < v.size(); ++i) {
-            if (i) s += ",";
+        for (size_t i = 0; i < v.size(); ++i)
+        {
+            if (i)
+                s += ",";
             s += to_string(v[i]);
         }
         return s + "]";
     }
 
     string s = "[";
-    for (int i = 0; i < 6; ++i) {
-        if (i) s += ",";
+    for (int i = 0; i < 6; ++i)
+    {
+        if (i)
+            s += ",";
         s += to_string(v[i]);
     }
     s += ", …(略去 " + to_string(v.size() - 9) + " 个)…, ";
-    for (size_t i = v.size() - 3; i < v.size(); ++i) {
-        if (i != v.size() - 3) s += ",";
+    for (size_t i = v.size() - 3; i < v.size(); ++i)
+    {
+        if (i != v.size() - 3)
+            s += ",";
         s += to_string(v[i]);
     }
     return s + "]";
@@ -115,7 +131,8 @@ static string vectorToString(const vector<int>& v) {
 //
 // 注意：本题输出是**按下标一一对应**的（第 j 个输出对应第 j 个窗口），
 //       顺序有意义，所以直接精确比较，不能排序后比。
-struct TestCase {
+struct TestCase
+{
     string name;          // 用例名称
     vector<int> nums;     // 输入数组
     int k;                // 窗口大小
@@ -123,8 +140,9 @@ struct TestCase {
 };
 
 // 运行一条用例，打印一行信息，返回该用例是否通过
-static bool runCase(const TestCase& c) {
-    vector<int> nums = c.nums;   // 解法收的是非 const 引用，复制一份给它
+static bool runCase(const TestCase &c)
+{
+    vector<int> nums = c.nums; // 解法收的是非 const 引用，复制一份给它
 
     Solution sol;
     vector<int> actual = sol.maxSlidingWindow(nums, c.k);
@@ -137,16 +155,18 @@ static bool runCase(const TestCase& c) {
          << "       期望: " << vectorToString(c.expected)
          << "\n       实际: " << vectorToString(actual) << endl;
 
-    if (!pass && actual.size() != c.expected.size()) {
+    if (!pass && actual.size() != c.expected.size())
+    {
         cout << "       （输出个数是 " << actual.size()
              << "，应为 " << c.expected.size() << " = n - k + 1）" << endl;
     }
     return pass;
 }
 
-int main() {
+int main()
+{
 #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);   // 让控制台按 UTF-8 输出，避免中文乱码
+    SetConsoleOutputCP(CP_UTF8); // 让控制台按 UTF-8 输出，避免中文乱码
 #endif
 
     // 题目给出的 2 个示例
@@ -157,17 +177,17 @@ int main() {
 
     // 额外的边界与补充用例
     vector<TestCase> extraCases = {
-        {"k = 1（结果就是原数组）",       {1, -1, 3, 2}, 1, {1, -1, 3, 2}},
-        {"k = n（只有一个输出）",         {5, 2, 9, 1}, 4, {9}},
-        {"两个元素 k = 2",                {2, 1}, 2, {2}},
-        {"全部相同",                      {3, 3, 3, 3}, 2, {3, 3, 3}},
-        {"单调递增",                      {1, 2, 3, 4, 5}, 2, {2, 3, 4, 5}},
-        {"单调递减",                      {5, 4, 3, 2, 1}, 2, {5, 4, 3, 2}},
-        {"全负数",                        {-5, -2, -8, -1}, 2, {-2, -2, -1}},
-        {"含重复的最大值",                {1, 3, 3, 1}, 2, {3, 3, 3}},
-        {"最大值从窗口左侧滑出",          {9, 1, 1, 1, 1, 8}, 3, {9, 1, 1, 8}},
-        {"约束边界的极值 ±10^4",          {-10000, 10000, -10000, 10000}, 3, {10000, 10000}},
-        {"最小值在窗口里",                {0, -10000, 0, 0}, 2, {0, 0, 0}},
+        {"k = 1（结果就是原数组）", {1, -1, 3, 2}, 1, {1, -1, 3, 2}},
+        {"k = n（只有一个输出）", {5, 2, 9, 1}, 4, {9}},
+        {"两个元素 k = 2", {2, 1}, 2, {2}},
+        {"全部相同", {3, 3, 3, 3}, 2, {3, 3, 3}},
+        {"单调递增", {1, 2, 3, 4, 5}, 2, {2, 3, 4, 5}},
+        {"单调递减", {5, 4, 3, 2, 1}, 2, {5, 4, 3, 2}},
+        {"全负数", {-5, -2, -8, -1}, 2, {-2, -2, -1}},
+        {"含重复的最大值", {1, 3, 3, 1}, 2, {3, 3, 3}},
+        {"最大值从窗口左侧滑出", {9, 1, 1, 1, 1, 8}, 3, {9, 1, 1, 8}},
+        {"约束边界的极值 ±10^4", {-10000, 10000, -10000, 10000}, 3, {10000, 10000}},
+        {"最小值在窗口里", {0, -10000, 0, 0}, 2, {0, 0, 0}},
     };
 
     // 最大规模用例 1：n = 10^5、k = n/2，数组严格递增
@@ -177,11 +197,13 @@ int main() {
         const int n = 100000, k = 50000;
         vector<int> nums;
         nums.reserve(n);
-        for (int v = 1; v <= n; ++v) nums.push_back(v);
+        for (int v = 1; v <= n; ++v)
+            nums.push_back(v);
 
         vector<int> expected;
         expected.reserve(n - k + 1);
-        for (int i = k - 1; i < n; ++i) expected.push_back(nums[i]);
+        for (int i = k - 1; i < n; ++i)
+            expected.push_back(nums[i]);
 
         extraCases.push_back({"最大规模 n=10^5, k=50000（严格递增）", nums, k, expected});
     }
@@ -199,18 +221,24 @@ int main() {
     size_t total = 0;
 
     cout << "================ 题目示例 ================" << endl;
-    for (const auto& c : sampleCases) {
+    for (const auto &c : sampleCases)
+    {
         ++total;
-        if (runCase(c)) ++passed;
+        if (runCase(c))
+            ++passed;
     }
 
-    cout << endl << "================ 补充用例 ================" << endl;
-    for (const auto& c : extraCases) {
+    cout << endl
+         << "================ 补充用例 ================" << endl;
+    for (const auto &c : extraCases)
+    {
         ++total;
-        if (runCase(c)) ++passed;
+        if (runCase(c))
+            ++passed;
     }
 
-    cout << endl << "================ 结果统计 ================" << endl;
+    cout << endl
+         << "================ 结果统计 ================" << endl;
     cout << "共 " << total << " 个用例，通过 " << passed
          << " 个，失败 " << (total - passed) << " 个。" << endl;
     cout << (passed == total ? "全部通过 ✔" : "存在失败用例 ✘") << endl;
