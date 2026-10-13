@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
-| 已建工程 | 44 个 |
-| 其中在计划内 | 30 个 |
+| 已建工程 | 45 个 |
+| 其中在计划内 | 31 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 30 题）**
+**已建工程（计划内 31 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -46,6 +46,7 @@
 | 121 | Best Time to Buy and Sell Stock | 滑动窗口 | Easy |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
+| 155 | Min Stack | 栈 | Medium |
 | 167 | Two Sum II - Input Array Is Sorted | 双指针 | Medium |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
 | 238 | Product of Array Except Self | 数组与哈希 | Medium |
@@ -85,7 +86,7 @@ leetcode-cpp/
 │   └── main.cpp
 ├── ...
 └── 347.topKFrequent/
-    └── main.cpp               # 共 44 个题目
+    └── main.cpp               # 共 45 个题目
 ```
 
 **为什么构建配置只有一份**：`main.cpp` 之间没有任何共享代码，
@@ -188,7 +189,7 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 
 ```powershell
 cmake --preset default          # 配置
-cmake --build --preset default  # 编译全部 44 道题
+cmake --build --preset default  # 编译全部 45 道题
 ```
 
 只想编译一道题：
