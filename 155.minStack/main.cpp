@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <stack>       // 思路一/二/三都用得到
-#include <algorithm>   // min
-#include <climits>     // INT_MIN / INT_MAX：极值用例与坑 5 相关
-#include <stdexcept>   // 占位实现抛异常用（写完就删）
+#include <stack>     // 思路一/二/三都用得到
+#include <algorithm> // min
+#include <climits>   // INT_MIN / INT_MAX：极值用例与坑 5 相关
+#include <stdexcept> // 占位实现抛异常用（写完就删）
 
 #ifdef _WIN32
-#include <windows.h>   // SetConsoleOutputCP：让控制台按 UTF-8 输出，避免中文乱码
+#include <windows.h> // SetConsoleOutputCP：让控制台按 UTF-8 输出，避免中文乱码
 #endif
 
 using namespace std;
@@ -15,13 +15,11 @@ using namespace std;
 // ===================== 答题区域 =====================
 // 这是「设计类」题目（和 271 Codec 同型）：考点不是算法，而是**状态设计**。
 // 要求 push / pop / top / getMin 四种操作全部 O(1)。
-class MinStack {
+class MinStack
+{
 public:
-    MinStack() {
-        // TODO: 需要初始化什么成员，在这里写（不需要就留空）
-    }
-
-    void push(int val) {
+    MinStack()
+    {
         // TODO: 在这里写你的解法
         //
         // 提示（先别展开看，卡住 10 分钟以上再回头看）：
@@ -84,22 +82,37 @@ public:
         //       716 最大栈（会员题）、895 最大频率栈
         //     · 你已建的 20「有效的括号」是"用栈做匹配"，这题是"维护栈的元信息"，
         //       两种用法的味道完全不同
-
     }
 
-    void pop() {
+    void push(int val)
+    {
+        data.push(val);
 
+        if (minSt.empty())
+            minSt.push(val);
+        else
+            minSt.push(min(minSt.top(), val));
     }
 
-    int top() {
-
-        return 0;   
+    void pop()
+    {
+        data.pop();
+        minSt.pop();
     }
 
-    int getMin() {
-
-        return 0;   
+    int top()
+    {
+        return data.top();
     }
+
+    int getMin()
+    {
+        return minSt.top();
+    }
+
+private:
+    stack<int> data;
+    stack<int> minSt;
 };
 // ===================== 答题区域结束 =====================
 
@@ -109,7 +122,8 @@ public:
 //   ops      操作序列，第一个必须是 "MinStack"（构造）
 //   args     与 ops 一一对应；无参数写 ""（如 "MinStack" / "pop" / "top" / "getMin"）
 //   expected 与 ops 一一对应；无返回值的操作写 "null"，有返回值的写结果的字符串
-struct TestCase {
+struct TestCase
+{
     string name;
     vector<string> ops;
     vector<string> args;
@@ -117,35 +131,55 @@ struct TestCase {
 };
 
 // 把字符串列表格式化成 [a,b,c] 便于打印
-static string joinList(const vector<string>& v, size_t limit = 24) {
+static string joinList(const vector<string> &v, size_t limit = 24)
+{
     string s = "[";
-    for (size_t i = 0; i < v.size() && i < limit; ++i) {
-        if (i) s += ",";
+    for (size_t i = 0; i < v.size() && i < limit; ++i)
+    {
+        if (i)
+            s += ",";
         s += (v[i].empty() ? "_" : v[i]);
     }
-    if (v.size() > limit) s += ",…（共 " + to_string(v.size()) + " 项）";
+    if (v.size() > limit)
+        s += ",…（共 " + to_string(v.size()) + " 项）";
     return s + "]";
 }
 
 // 运行一条用例，打印一行信息，返回该用例是否通过
-static bool runCase(const TestCase& c) {
+static bool runCase(const TestCase &c)
+{
     vector<string> got;
 
-    try {
-        MinStack st;                  // 第一个操作是 "MinStack"，这里直接构造
-        for (size_t i = 0; i < c.ops.size(); ++i) {
-            const string& op = c.ops[i];
-            const string& arg = (i < c.args.size()) ? c.args[i] : string();
+    try
+    {
+        MinStack st; // 第一个操作是 "MinStack"，这里直接构造
+        for (size_t i = 0; i < c.ops.size(); ++i)
+        {
+            const string &op = c.ops[i];
+            const string &arg = (i < c.args.size()) ? c.args[i] : string();
 
-            if (op == "MinStack")      got.push_back("null");
-            else if (op == "push")     { st.push(stoi(arg)); got.push_back("null"); }
-            else if (op == "pop")      { st.pop();           got.push_back("null"); }
-            else if (op == "top")      got.push_back(to_string(st.top()));
-            else if (op == "getMin")   got.push_back(to_string(st.getMin()));
-            else                       got.push_back("(未知操作 " + op + ")");
+            if (op == "MinStack")
+                got.push_back("null");
+            else if (op == "push")
+            {
+                st.push(stoi(arg));
+                got.push_back("null");
+            }
+            else if (op == "pop")
+            {
+                st.pop();
+                got.push_back("null");
+            }
+            else if (op == "top")
+                got.push_back(to_string(st.top()));
+            else if (op == "getMin")
+                got.push_back(to_string(st.getMin()));
+            else
+                got.push_back("(未知操作 " + op + ")");
         }
     }
-    catch (const exception& e) {
+    catch (const exception &e)
+    {
         cout << "[失败] " << c.name << "  抛出异常: " << e.what() << endl;
         return false;
     }
@@ -162,50 +196,47 @@ static bool runCase(const TestCase& c) {
     return pass;
 }
 
-int main() {
+int main()
+{
 #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);   // 让控制台按 UTF-8 输出，避免中文乱码
+    SetConsoleOutputCP(CP_UTF8); // 让控制台按 UTF-8 输出，避免中文乱码
 #endif
 
     // 题目给出的示例
     const vector<TestCase> sampleCases = {
-        {"示例 1", {"MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"},
-                   {"", "-2", "0", "-3", "", "", "", ""},
-                   {"null", "null", "null", "null", "-3", "null", "0", "-2"}},
+        {"示例 1", {"MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"}, {"", "-2", "0", "-3", "", "", "", ""}, {"null", "null", "null", "null", "-3", "null", "0", "-2"}},
     };
 
     // 额外的边界与补充用例
     vector<TestCase> extraCases = {
-        {"单元素", {"MinStack", "push", "top", "getMin"},
-                   {"", "5", "", ""},
-                   {"null", "null", "5", "5"}},
+        {"单元素", {"MinStack", "push", "top", "getMin"}, {"", "5", "", ""}, {"null", "null", "5", "5"}},
 
         {"递减压入（min 一路跟着变小）",
-                   {"MinStack", "push", "push", "push", "getMin", "pop", "getMin", "pop", "getMin"},
-                   {"", "3", "2", "1", "", "", "", "", ""},
-                   {"null", "null", "null", "null", "1", "null", "2", "null", "3"}},
+         {"MinStack", "push", "push", "push", "getMin", "pop", "getMin", "pop", "getMin"},
+         {"", "3", "2", "1", "", "", "", "", ""},
+         {"null", "null", "null", "null", "1", "null", "2", "null", "3"}},
 
         {"递增压入（min 一直是最底下那个）",
-                   {"MinStack", "push", "push", "push", "getMin", "pop", "pop", "getMin", "top"},
-                   {"", "1", "2", "3", "", "", "", "", ""},
-                   {"null", "null", "null", "null", "1", "null", "null", "1", "1"}},
+         {"MinStack", "push", "push", "push", "getMin", "pop", "pop", "getMin", "top"},
+         {"", "1", "2", "3", "", "", "", "", ""},
+         {"null", "null", "null", "null", "1", "null", "null", "1", "1"}},
 
         {"极值 ±2^31-1",
-                   {"MinStack", "push", "push", "getMin", "top", "pop", "top", "getMin"},
-                   {"", "-2147483648", "2147483647", "", "", "", "", ""},
-                   {"null", "null", "null", "-2147483648", "2147483647", "null", "-2147483648", "-2147483648"}},
+         {"MinStack", "push", "push", "getMin", "top", "pop", "top", "getMin"},
+         {"", "-2147483648", "2147483647", "", "", "", "", ""},
+         {"null", "null", "null", "-2147483648", "2147483647", "null", "-2147483648", "-2147483648"}},
 
         // 这条专抓「思路三用 < 而不是 <=」的 bug：连续三个 0，
         // 辅助栈若只压一份，弹出两次后 getMin 就取不到值 / 取到错值
         {"重复最小值（抓 <= 写成 <）",
-                   {"MinStack", "push", "push", "push", "getMin", "pop", "getMin", "pop", "getMin"},
-                   {"", "0", "0", "0", "", "", "", "", ""},
-                   {"null", "null", "null", "null", "0", "null", "0", "null", "0"}},
+         {"MinStack", "push", "push", "push", "getMin", "pop", "getMin", "pop", "getMin"},
+         {"", "0", "0", "0", "", "", "", "", ""},
+         {"null", "null", "null", "null", "0", "null", "0", "null", "0"}},
 
         {"弹出后压入更小的",
-                   {"MinStack", "push", "push", "pop", "push", "getMin", "top"},
-                   {"", "2", "5", "", "1", "", ""},
-                   {"null", "null", "null", "null", "null", "1", "1"}},
+         {"MinStack", "push", "push", "pop", "push", "getMin", "top"},
+         {"", "2", "5", "", "1", "", ""},
+         {"null", "null", "null", "null", "null", "1", "1"}},
     };
 
     // 长序列压力用例：合计 25003 次操作（题目约束上限是 3×10^4）
@@ -217,21 +248,40 @@ int main() {
     {
         TestCase big;
         big.name = "长序列压力（25003 次操作）";
-        big.ops.push_back("MinStack"); big.args.push_back(""); big.expected.push_back("null");
+        big.ops.push_back("MinStack");
+        big.args.push_back("");
+        big.expected.push_back("null");
 
-        for (int v = 0; v < 5000; ++v) {
-            big.ops.push_back("push");   big.args.push_back(to_string(v)); big.expected.push_back("null");
-            big.ops.push_back("getMin"); big.args.push_back("");           big.expected.push_back("0");
+        for (int v = 0; v < 5000; ++v)
+        {
+            big.ops.push_back("push");
+            big.args.push_back(to_string(v));
+            big.expected.push_back("null");
+            big.ops.push_back("getMin");
+            big.args.push_back("");
+            big.expected.push_back("0");
         }
-        for (int v = 1; v <= 5000; ++v) {
-            big.ops.push_back("push");   big.args.push_back(to_string(-v)); big.expected.push_back("null");
-            big.ops.push_back("getMin"); big.args.push_back("");            big.expected.push_back(to_string(-v));
+        for (int v = 1; v <= 5000; ++v)
+        {
+            big.ops.push_back("push");
+            big.args.push_back(to_string(-v));
+            big.expected.push_back("null");
+            big.ops.push_back("getMin");
+            big.args.push_back("");
+            big.expected.push_back(to_string(-v));
         }
-        for (int i = 0; i < 5000; ++i) {
-            big.ops.push_back("pop");    big.args.push_back(""); big.expected.push_back("null");
+        for (int i = 0; i < 5000; ++i)
+        {
+            big.ops.push_back("pop");
+            big.args.push_back("");
+            big.expected.push_back("null");
         }
-        big.ops.push_back("getMin");     big.args.push_back(""); big.expected.push_back("0");
-        big.ops.push_back("top");        big.args.push_back(""); big.expected.push_back("4999");
+        big.ops.push_back("getMin");
+        big.args.push_back("");
+        big.expected.push_back("0");
+        big.ops.push_back("top");
+        big.args.push_back("");
+        big.expected.push_back("4999");
 
         extraCases.push_back(big);
     }
@@ -240,18 +290,24 @@ int main() {
     size_t total = 0;
 
     cout << "================ 题目示例 ================" << endl;
-    for (const auto& c : sampleCases) {
+    for (const auto &c : sampleCases)
+    {
         ++total;
-        if (runCase(c)) ++passed;
+        if (runCase(c))
+            ++passed;
     }
 
-    cout << endl << "================ 补充用例 ================" << endl;
-    for (const auto& c : extraCases) {
+    cout << endl
+         << "================ 补充用例 ================" << endl;
+    for (const auto &c : extraCases)
+    {
         ++total;
-        if (runCase(c)) ++passed;
+        if (runCase(c))
+            ++passed;
     }
 
-    cout << endl << "================ 结果统计 ================" << endl;
+    cout << endl
+         << "================ 结果统计 ================" << endl;
     cout << "共 " << total << " 个用例，通过 " << passed
          << " 个，失败 " << (total - passed) << " 个。" << endl;
     cout << (passed == total ? "全部通过 ✔" : "存在失败用例 ✘") << endl;
