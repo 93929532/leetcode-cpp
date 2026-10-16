@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
-| 已建工程 | 48 个 |
-| 其中在计划内 | 34 个 |
+| 已建工程 | 50 个 |
+| 其中在计划内 | 36 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 34 题）**
+**已建工程（计划内 36 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -43,6 +43,7 @@
 | 42 | Trapping Rain Water | 双指针 | Hard |
 | 49 | Group Anagrams | 数组与哈希 | Medium |
 | 76 | Minimum Window Substring | 滑动窗口 | Hard |
+| 84 | Largest Rectangle in Histogram | 栈 | Hard |
 | 121 | Best Time to Buy and Sell Stock | 滑动窗口 | Easy |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
@@ -58,6 +59,7 @@
 | 424 | Longest Repeating Character Replacement | 滑动窗口 | Medium |
 | 567 | Permutation in String | 滑动窗口 | Medium |
 | 739 | Daily Temperatures | 栈 | Medium |
+| 853 | Car Fleet | 栈 | Medium |
 
 **计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
 13 罗马数字转整数、14 最长公共前缀、16 最接近的三数之和、18 四数之和、22 括号生成、

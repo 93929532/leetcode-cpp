@@ -69,9 +69,10 @@ public:
         //
         //   复杂度：排序 O(n log n) + 一次扫描 O(n) —— 见下面的 10^5 用例。
 
-        vector<pair<int, double>> time(position.size());
+        int n = position.size();
+        vector<pair<int, double>> time(n);
 
-        for (int i = 0; i < position.size(); i++)
+        for (int i = 0; i < n; i++)
         {
             time[i].first = position[i];
             time[i].second = (double)(target - position[i]) / speed[i];
@@ -82,7 +83,7 @@ public:
         int fleets = 0;
         double maxtime = -1;
 
-        for (int last = time.size() - 1; last >= 0; last--)
+        for (int last = n - 1; last >= 0; last--)
         {
             if (time[last].second > maxtime)
             {
