@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
-| 已建工程 | 50 个 |
-| 其中在计划内 | 36 个 |
+| 已建工程 | 52 个 |
+| 其中在计划内 | 38 个 |
 | 计划外热身题 | 14 个 |
 
-**已建工程（计划内 36 题）**
+**已建工程（计划内 38 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -58,8 +58,10 @@
 | 347 | Top K Frequent Elements | 数组与哈希 | Medium |
 | 424 | Longest Repeating Character Replacement | 滑动窗口 | Medium |
 | 567 | Permutation in String | 滑动窗口 | Medium |
+| 704 | Binary Search | 二分查找 | Easy |
 | 739 | Daily Temperatures | 栈 | Medium |
 | 853 | Car Fleet | 栈 | Medium |
+| 875 | Koko Eating Bananas | 二分查找 | Medium |
 
 **计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
 13 罗马数字转整数、14 最长公共前缀、16 最接近的三数之和、18 四数之和、22 括号生成、
