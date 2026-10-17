@@ -65,8 +65,9 @@ public:
 
         // 单调栈：存【下标】，对应高度从栈底到栈顶递增。
         // 含义：栈里这些柱子都"还没遇到右边第一个比它矮的柱子"。
-        heights.push_back(0);                                   // 末尾补 0 哨兵，保证最后一轮把栈清空
+        heights.push_back(0);                                   
         stack<int> heightStack;
+        // 末尾补 0 哨兵，保证最后一轮把栈清空
         int res = 0;
 
         for (int i = 0; i < (int)heights.size(); i++)
