@@ -88,39 +88,18 @@ public:
     {
         // TODO: 在这里写你的解法
 
-        if (head == nullptr)
-            return nullptr;
-
         unordered_map<Node *, Node *> mp;
-        Node *newHead = new Node(head->val);
 
-        Node *oldCur = head, *newCur = newHead;
-        while (oldCur != nullptr)
+        for (Node *p = head; p != nullptr; p = p->next)
+            mp[p] = new Node(p->val);
+
+        for (Node *p = head; p != nullptr; p = p->next)
         {
-            if (oldCur->next != nullptr)
-                newCur->next = new Node(oldCur->next->val);
-            else
-                newCur->next = nullptr;
-
-            mp[oldCur] = newCur;
-
-            oldCur = oldCur->next;
-            newCur = newCur->next;
+            mp[p]->next = (p->next != nullptr ? mp[p->next] : nullptr);
+            mp[p]->random = (p->random != nullptr ? mp[p->random] : nullptr);
         }
 
-        oldCur = head, newCur = newHead;
-        while (oldCur != nullptr)
-        {
-            if (oldCur->random != nullptr)
-                newCur->random = mp[oldCur->random];
-            else
-                newCur->random = nullptr;
-
-            oldCur = oldCur->next;
-            newCur = newCur->next;
-        }
-
-        return newHead;
+        return head != nullptr ? mp[head] : nullptr;
     }
 };
 // ===================== 答题区域结束 =====================
