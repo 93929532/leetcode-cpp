@@ -100,7 +100,6 @@ public:
                 return slow;
             }
         }
-
         return nullptr;
     }
 };
