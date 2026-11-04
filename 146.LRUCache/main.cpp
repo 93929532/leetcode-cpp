@@ -70,63 +70,85 @@ using namespace std;
 //           380/381 O(1) 时间插入删除获取随机元素、588 设计文件系统
 class LRUCache
 {
+private:
+    struct cache
+    {
+        int key;
+        int val;
+        cache *prev, *next;
+    };
+
+    cache *head, *tail;
+    unordered_map<int, cache *> mp;
+    int cap;
+
+    void pushCache(cache *p)
+    {
+        cache *nxt = head->next;
+
+        head->next = p;
+        nxt->prev = p;
+        p->next = nxt;
+        p->prev = head;
+    }
+
+    void popCache(cache *p)
+    {
+        p->next->prev = p->prev;
+        p->prev->next = p->next;
+    }
+
 public:
     LRUCache(int capacity)
     {
         // TODO: 在这里写你的解法
-        end = head;
 
-        for (int i = 1; i <= capacity; i++)
-        {
-            end->next = new cashe(-1, -1, nullptr);
-            end = end->next;
-        }
+        head = new cache{-1, -1, nullptr, nullptr};
+        tail = new cache{-1, -1, nullptr, nullptr};
+
+        head->next = tail;
+        tail->prev = head;
+
+        cap = capacity;
+        mp.clear();
     }
 
     int get(int key)
     {
-        cashe *cur = head;
-        cashe *prev = head->next;
-
-        while (cur != end)
+        if (mp.find(key) != mp.end())
         {
-            if (prev->key == key)
-            {
-                int val = prev->val;
-                cur->next = prev->next;
-                prev->next = head->next;
-                head->next = prev;
-
-                return val;
-            }
-
-            cur = cur->next;
-            prev = prev->next;
+            popCache(mp[key]);
+            pushCache(mp[key]);
+            return mp[key]->val;
         }
-
-        return -1;
+        else
+            return -1;
     }
 
     void put(int key, int value)
     {
-        end->next = new cashe(key, value, nullptr);
-        end = end->next;
+        if (mp.find(key) != mp.end())
+        {
+            mp[key]->val = value;
+            popCache(mp[key]);
+            pushCache(mp[key]);
+        }
+        else
+        {
+            if ((int)mp.size() == cap)
+            {
+                cache *old = tail->prev;
 
-        head->next = head->next->next;
+                mp.erase(old->key);
+                popCache(old);
+                delete old;
+            }
+
+            cache *p = new cache{key, value, nullptr, nullptr};
+            pushCache(p);
+            mp[key] = p;
+        }
     }
-
-private:
-    struct cashe
-    {
-        int key;
-        int val;
-        cashe *next;
-
-        cashe(int i, int v, cashe *p) : key(i), val(v), next(p) {};
-    };
-
-    cashe *head = new cashe(-1, 0, nullptr);
-    cashe *end = head;
 };
 // ===================== 答题区域结束 =====================
 
