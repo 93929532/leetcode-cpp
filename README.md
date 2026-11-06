@@ -16,11 +16,11 @@
 | 指标 | 数量 |
 | --- | --- |
 | 计划题目 | 132 条记录（已剔除 4 道会员题：271 / 261 / 269 / 323，免费账号无法在官网验证） |
-| 已建工程 | 52 个 |
-| 其中在计划内 | 38 个 |
-| 计划外热身题 | 14 个 |
+| 已建工程 | 71 个 |
+| 其中在计划内 | 54 个 |
+| 计划外热身题 | 17 个 |
 
-**已建工程（计划内 38 题）**
+**已建工程（计划内 54 题）**
 
 | 题号 | 题目 | 主题 | 难度 |
 | --- | --- | --- | --- |
@@ -39,34 +39,51 @@
 | 21 | Merge Two Sorted Lists | 链表 | Easy |
 | 23 | Merge k Sorted Lists | 链表 | Hard |
 | 25 | Reverse Nodes in k-Group | 链表 | Hard |
+| 33 | Search in Rotated Sorted Array | 二分查找 | Medium |
 | 36 | Valid Sudoku | 数组与哈希 | Medium |
 | 42 | Trapping Rain Water | 双指针 | Hard |
 | 49 | Group Anagrams | 数组与哈希 | Medium |
+| 74 | Search a 2D Matrix | 二分查找 | Medium |
 | 76 | Minimum Window Substring | 滑动窗口 | Hard |
 | 84 | Largest Rectangle in Histogram | 栈 | Hard |
+| 100 | Same Tree | 树 | Easy |
+| 104 | Maximum Depth of Binary Tree | 树 | Easy |
+| 110 | Balanced Binary Tree | 树 | Easy |
 | 121 | Best Time to Buy and Sell Stock | 滑动窗口 | Easy |
 | 125 | Valid Palindrome | 双指针 | Easy |
 | 128 | Longest Consecutive Sequence | 数组与哈希 | Medium |
+| 138 | Copy List with Random Pointer | 链表 | Medium |
+| 141 | Linked List Cycle | 链表 | Easy |
+| 143 | Reorder List | 链表 | Medium |
+| 146 | LRU Cache | 链表 | Medium |
 | 150 | Evaluate Reverse Polish Notation | 栈 | Medium |
+| 153 | Find Minimum in Rotated Sorted Array | 二分查找 | Medium |
 | 155 | Min Stack | 栈 | Medium |
 | 167 | Two Sum II - Input Array Is Sorted | 双指针 | Medium |
+| 206 | Reverse Linked List | 链表 | Easy |
 | 208 | Implement Trie (Prefix Tree) | 字典树 | Medium |
 | 217 | Contains Duplicate | 数组与哈希 | Easy |
+| 226 | Invert Binary Tree | 树 | Easy |
 | 238 | Product of Array Except Self | 数组与哈希 | Medium |
 | 239 | Sliding Window Maximum | 滑动窗口 | Hard |
 | 242 | Valid Anagram | 数组与哈希 | Easy |
+| 287 | Find the Duplicate Number | 链表 | Medium |
+| 322 | Coin Change | 一维动态规划 | Medium |
 | 347 | Top K Frequent Elements | 数组与哈希 | Medium |
 | 424 | Longest Repeating Character Replacement | 滑动窗口 | Medium |
+| 543 | Diameter of Binary Tree | 树 | Easy |
 | 567 | Permutation in String | 滑动窗口 | Medium |
 | 704 | Binary Search | 二分查找 | Easy |
 | 739 | Daily Temperatures | 栈 | Medium |
 | 853 | Car Fleet | 栈 | Medium |
 | 875 | Koko Eating Bananas | 二分查找 | Medium |
+| 981 | Time Based Key-Value Store | 二分查找 | Medium |
 
-**计划外热身题（14 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
+**计划外热身题（17 题）**：6 字形变换、8 字符串转换整数、9 回文数、12 整数转罗马数字、
 13 罗马数字转整数、14 最长公共前缀、16 最接近的三数之和、18 四数之和、22 括号生成、
 24 两两交换链表中的节点、26 删除有序数组中的重复项、27 移除元素、
-28 找出字符串中第一个匹配项的下标、29 两数相除
+28 找出字符串中第一个匹配项的下标、29 两数相除、
+101 对称二叉树、142 环形链表 II、154 寻找旋转排序数组中的最小值 II
 
 > 逐题的完成日期、是否看了解析、盲写通过日期、卡点笔记，
 > 记录在 [刷题进度表.xlsx](力扣学习计划/刷题进度表.xlsx) 里。
