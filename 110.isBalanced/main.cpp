@@ -79,12 +79,23 @@ struct TreeNode
 class Solution
 {
 private:
-    int calcHeight(TreeNode *root)
+    int dfsTree(TreeNode *root)
     {
         if (root == nullptr)
             return 0;
 
-        return 1 + max(calcHeight(root->left), calcHeight(root->right));
+        int leftChild = dfsTree(root->left);
+        if (leftChild == -1)
+            return -1;
+
+        int rightChild = dfsTree(root->right);
+        if (rightChild == -1)
+            return -1;
+
+        if (abs(leftChild - rightChild) > 1)
+            return -1;
+
+        return 1 + max(leftChild, rightChild);
     }
 
 public:
@@ -92,13 +103,7 @@ public:
     {
         // TODO: 在这里写你的解法
 
-        if (root == nullptr)
-            return true;
-
-        if (abs(calcHeight(root->left) - calcHeight(root->right)) > 1)
-            return false;
-
-        return isBalanced(root->left) && isBalanced(root->right);
+        return dfsTree(root) != -1;
     }
 };
 // ===================== 答题区域结束 =====================
