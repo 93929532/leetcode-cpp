@@ -85,31 +85,33 @@ struct TreeNode
 //           108 将有序数组转换为 BST、297 二叉树序列化与反序列化
 class Solution
 {
+private:
+    unordered_map<int, int> pos; // ★ 中序：值 -> 下标
+    int preIdx = 0;              // ★ 前序"当前根"指针
+
+    TreeNode *build(const vector<int> &pre, int inLo, int inHi)
+    {
+        if (inLo > inHi)
+            return nullptr;
+
+        int rootVal = pre[preIdx++];
+        TreeNode *root = new TreeNode(rootVal);
+
+        int mid = pos[rootVal];                 // ★ O(1) 定位根
+        root->left = build(pre, inLo, mid - 1); // ★ 只传下标，不复制
+        root->right = build(pre, mid + 1, inHi);
+        return root;
+    }
+
 public:
     TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
     {
-        // TODO: 在这里写你的解法
+        pos.clear();
+        for (int i = 0; i < (int)inorder.size(); ++i)
+            pos[inorder[i]] = i;
 
-        if (preorder.size() == 0)
-            return nullptr;
-
-        TreeNode *root = new TreeNode(preorder.front());
-
-        int n = 0;
-        while (preorder.front() != inorder.at(n))
-            n++;
-
-        vector<int> psub, isub;
-
-        psub.assign(preorder.begin() + 1, preorder.begin() + n + 1);
-        isub.assign(inorder.begin(), inorder.begin() + n);
-        root->left = buildTree(psub, isub);
-
-        psub.assign(preorder.begin() + n + 1, preorder.end());
-        isub.assign(inorder.begin() + n + 1, inorder.end());
-        root->right = buildTree(psub, isub);
-
-        return root;
+        preIdx = 0;
+        return build(preorder, 0, (int)inorder.size() - 1);
     }
 };
 // ===================== 答题区域结束 =====================
