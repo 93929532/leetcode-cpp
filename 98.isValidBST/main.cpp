@@ -92,9 +92,6 @@ private:
         if (value <= low || value >= high)
             return false;
 
-        if (root->left == nullptr && root->right == nullptr)
-            return true;
-
         return DFS(root->left, low, value) && DFS(root->right, value, high);
     }
 
