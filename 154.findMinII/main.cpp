@@ -96,7 +96,7 @@ public:
             else if (nums[mid] < nums[right])
                 right = mid;
             else
-                left--;
+                right--;
         }
 
         return nums[left];
