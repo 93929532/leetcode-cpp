@@ -8,6 +8,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-std=c++17",
+                "-O2",
                 "-g",
                 "-Wall",
                 "-finput-charset=UTF-8",
