@@ -72,6 +72,26 @@ private:
 
     wordNode *root;
 
+    bool DFSsearch(const string &word, size_t i, wordNode *node)
+    {
+        if (node == nullptr)
+            return false;
+        if (i == word.size())
+            return node->isEnd;
+
+        if (word[i] == '.')
+        {
+            for (size_t j = 0; j < 26; j++)
+            {
+                if (node->Node[j] != nullptr && DFSsearch(word, i + 1, node->Node[j]))
+                    return true;
+            }
+            return false;
+        }
+
+        return DFSsearch(word, i + 1, node->Node[word[i] - 'a']);
+    }
+
 public:
     WordDictionary()
     {
@@ -102,33 +122,7 @@ public:
     {
         // TODO: 在这里写你的解法
 
-        wordNode *p = root;
-
-        for (int i = 0; i < word.size(); i++)
-        {
-            if (word[i] == '.')
-            {
-                for (int j = 0; j < 26; j++)
-                {
-                    if (p->Node[j] != nullptr)
-                    {
-                        if (search(word.substr(0, i) + (char)('a' + j) + word.substr(i + 1)))
-                            return true;
-                    }
-                }
-                return false;
-            }
-
-            char c = word[i];
-            int num = c - 'a';
-
-            if (p->Node[num] != nullptr)
-                p = p->Node[num];
-            else
-                return false;
-        }
-
-        return p->isEnd;
+        return DFSsearch(word, 0, root);
     }
 };
 // ===================== 答题区域结束 =====================
