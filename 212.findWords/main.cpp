@@ -84,20 +84,35 @@ private:
 
     Node *root;
     int R, C;
+    vector<string> res;
+    int dr[4] = {-1, 1, 0, 0};
+    int dc[4] = {0, 0, -1, 1};
 
-    void dfs(vector<vector<char>> &b, int r, int c, Node *node)
+    void dfs(vector<vector<char>> &board, int r, int c, Node *node)
     {
         if (r < 0 || r >= R || c < 0 || c >= C)
-            return; // 越界
+            return;
 
-        char ch = b[r][c]; 
+        char ch = board[r][c];
+
         if (ch == '#')
-            return; // 已访问
+            return;
 
         Node *next = node->child[ch - 'a'];
-        if (next == nullptr)
-            return; // Trie 上没有这条边，剪枝
 
+        if (next == nullptr)
+            return;
+
+        if (!next->word.empty())
+        {
+            res.push_back(next->word);
+            next->word.clear();
+        }
+
+        board[r][c] = '#';
+        for (int k = 0; k < 4; ++k)
+            dfs(board, r + dr[k], c + dc[k], next);
+        board[r][c] = ch;
     }
 
 public:
@@ -112,15 +127,21 @@ public:
         for (string w : words)
         {
             Node *p = root;
-            for (char c : w)
+            for (char ch : w)
             {
-                int k = c - 'a';
+                int k = ch - 'a';
                 if (p->child[k] == nullptr)
                     p->child[k] = new Node();
                 p = p->child[k];
             }
             p->word = w;
         }
+
+        for (int r = 0; r < R; r++)
+            for (int c = 0; c < C; c++)
+                dfs(board, r, c, root);
+
+        return res;
     }
 };
 // ===================== 答题区域结束 =====================
