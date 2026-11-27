@@ -137,6 +137,8 @@ public:
             p->word = w;
         }
 
+        res.clear();
+
         for (int r = 0; r < R; r++)
             for (int c = 0; c < C; c++)
                 dfs(board, r, c, root);
